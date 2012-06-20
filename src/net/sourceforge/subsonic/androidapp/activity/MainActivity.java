@@ -25,9 +25,9 @@ import net.sourceforge.subsonic.androidapp.R;
 import net.sourceforge.subsonic.androidapp.service.DownloadService;
 import net.sourceforge.subsonic.androidapp.service.DownloadServiceImpl;
 import net.sourceforge.subsonic.androidapp.util.Constants;
-import net.sourceforge.subsonic.androidapp.util.FileUtil;
 import net.sourceforge.subsonic.androidapp.util.MergeAdapter;
 import net.sourceforge.subsonic.androidapp.util.Util;
+import net.sourceforge.subsonic.androidapp.util.FileUtil;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -36,6 +36,7 @@ import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -71,6 +72,7 @@ public class MainActivity extends SubsonicTabActivity {
         final View serverButton = buttons.findViewById(R.id.main_select_server);
         final TextView serverTextView = (TextView) serverButton.findViewById(R.id.main_select_server_2);
 
+        final View albumsTitle = buttons.findViewById(R.id.main_albums);
         final View albumsNewestButton = buttons.findViewById(R.id.main_albums_newest);
         final View albumsRandomButton = buttons.findViewById(R.id.main_albums_random);
         final View albumsHighestButton = buttons.findViewById(R.id.main_albums_highest);
@@ -88,6 +90,7 @@ public class MainActivity extends SubsonicTabActivity {
         MergeAdapter adapter = new MergeAdapter();
         adapter.addViews(Arrays.asList(serverButton), true);
         if (!Util.isOffline(this)) {
+            adapter.addView(albumsTitle, false);
             adapter.addViews(Arrays.asList(albumsNewestButton, albumsRandomButton, albumsHighestButton, albumsRecentButton, albumsFrequentButton), true);
         }
         list.setAdapter(adapter);
@@ -115,20 +118,8 @@ public class MainActivity extends SubsonicTabActivity {
         // Title: Subsonic
         setTitle(R.string.common_appname);
 
-        // Button 1: search
-        ImageButton actionSearchButton = (ImageButton)findViewById(R.id.action_button_1);
-        actionSearchButton.setImageResource(R.drawable.ic_menu_search);
-        actionSearchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            	Intent intent = new Intent(MainActivity.this, SearchActivity.class);
-            	intent.putExtra(Constants.INTENT_EXTRA_REQUEST_SEARCH, true);
-                Util.startActivityWithoutTransition(MainActivity.this, intent);
-            }
-        });
-        
-        // Button 2: shuffle
-        ImageButton actionShuffleButton = (ImageButton)findViewById(R.id.action_button_2);
+        // Button 1: shuffle
+        ImageButton actionShuffleButton = (ImageButton)findViewById(R.id.action_button_1);
         actionShuffleButton.setImageResource(R.drawable.ic_menu_shuffle);
         actionShuffleButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,7 +129,17 @@ public class MainActivity extends SubsonicTabActivity {
                 Util.startActivityWithoutTransition(MainActivity.this, intent);
             }
         });
-
+        
+        // Button 2: settings
+        ImageButton actionSettingsButton = (ImageButton)findViewById(R.id.action_button_2);
+        actionSettingsButton.setImageResource(R.drawable.ic_menu_settings);
+        actionSettingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            	startActivity(new Intent(MainActivity.this, SettingsActivity.class));
+            }
+        });
+        
         // Button 3: help
         ImageButton actionHelpButton = (ImageButton)findViewById(R.id.action_button_3);
         actionHelpButton.setImageResource(R.drawable.ic_menu_help);
@@ -148,14 +149,14 @@ public class MainActivity extends SubsonicTabActivity {
             	startActivity(new Intent(MainActivity.this, HelpActivity.class));
             }
         });
-
-        // Button 4: settings
-        ImageButton actionSettingsButton = (ImageButton)findViewById(R.id.action_button_4);
-        actionSettingsButton.setImageResource(R.drawable.ic_menu_settings);
-        actionSettingsButton.setOnClickListener(new View.OnClickListener() {
+        
+        // Button 4: exit
+        ImageButton actionSearchButton = (ImageButton)findViewById(R.id.action_button_4);
+        actionSearchButton.setImageResource(R.drawable.ic_menu_exit);
+        actionSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            	startActivity(new Intent(MainActivity.this, SettingsActivity.class));
+            	exit();
             }
         });
         

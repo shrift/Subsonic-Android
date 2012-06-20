@@ -170,8 +170,14 @@ public class SelectAlbumActivity extends SubsonicTabActivity {
             getMusicDirectory(id, name);
         }
 
-        // Button 1: play all
-        playAllButton = (ImageButton) findViewById(R.id.action_button_1);
+		// Button 1: gone
+		findViewById(R.id.action_button_1).setVisibility(View.GONE);
+
+		// Button 2: gone
+		findViewById(R.id.action_button_2).setVisibility(View.GONE);
+        
+        // Button 3: play all
+        playAllButton = (ImageButton) findViewById(R.id.action_button_3);
         playAllButton.setImageResource(R.drawable.ic_menu_play_all);
         playAllButton.setVisibility(View.GONE);
         playAllButton.setOnClickListener(new View.OnClickListener() {
@@ -181,8 +187,8 @@ public class SelectAlbumActivity extends SubsonicTabActivity {
             }
         });
 
-        // Button 2: refresh
-        ImageButton refreshButton = (ImageButton) findViewById(R.id.action_button_2);
+        // Button 4: refresh
+        ImageButton refreshButton = (ImageButton) findViewById(R.id.action_button_4);
         refreshButton.setImageResource(R.drawable.ic_menu_refresh);
         refreshButton.setOnClickListener(new View.OnClickListener() {
             @Override

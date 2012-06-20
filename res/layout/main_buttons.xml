@@ -44,6 +44,17 @@
     </LinearLayout>
 
     <TextView
+        a:id="@+id/main_albums"
+        a:layout_width="fill_parent"
+        a:layout_height="wrap_content"
+        a:gravity="center_vertical"
+        a:paddingLeft="6dp"
+        a:text="@string/main.albums_title"
+        a:textAllCaps="true"
+        a:textAppearance="?android:attr/textAppearanceSmall"
+        a:textStyle="bold" />
+
+    <TextView
         a:id="@+id/main_albums_newest"
         a:layout_width="fill_parent"
         a:layout_height="wrap_content"
