@@ -1,8 +1,4 @@
-/target
-/bin
-/gen
-/.settings
-.DS_Store
-.classpath
-.orig
-.project
+bin/
+*.class
+gen/*
+*.patch
